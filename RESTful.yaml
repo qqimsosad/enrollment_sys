@@ -1,0 +1,160 @@
+openapi: 3.0.1
+info:
+  title: 學生選課系統架構
+  description: API for managing courses and teachers
+  version: 1.0.0
+paths:
+  /courses:
+    get:
+      summary: course list
+      description: include:courseId, course_title, location, start_end time, syllabus, teacher_info.
+      responses:
+        '200':
+          description: Get the course list
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 2
+                items:
+                  $ref: '#/components/schemas/Course'
+                  
+    post:
+      summary: create an new course
+      description: create  an new course into  the system.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+      responses:
+        '201':
+          description: A course be created.
+  /teachers:
+    get:
+      summary: All of teachers.
+      description: Retrieve a list of teachers.
+      responses:
+        '200':
+          description: A list of teachers
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 2
+                items:
+                  $ref: '#/components/schemas/teacher'
+    post:
+      summary: Create a new teacher
+      description: Add a new teacher to the system.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties: 
+                teacher_id: 
+                  type: integer
+                teacher_name:
+                  type: string
+                teacher_email:
+                  type: string
+      responses:
+        '201':
+          description: A teacher be created.
+  /teachers/{teacher_id}/courses:
+    get:
+      summary: Get courses taught by a specific teacher.
+      description: Retrieve a list of courses for a specific teacher.
+      parameters:
+        - in: path
+          name: teacher_id
+          required: true
+          schema:
+            type: integer
+          description: The ID of the teacher
+      responses:
+        '200':
+          description: A list of courses for the teacher.
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 2
+                items:
+                  $ref: '#/components/schemas/Course'
+  /courses/{course_id}:
+    put:
+      summary: Update a course
+      description: Update details of an existing course.
+      parameters:
+        - in: path
+          name: course_id
+          required: true
+          schema:
+            type: integer
+          description: The ID of the course
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+      responses:
+        '200':
+          description: Course updated
+    delete:
+      summary: Delete a course
+      description: Remove a course from the system.
+      parameters:
+        - in: path
+          name: course_id
+          required: true
+          schema:
+            type: integer
+          description: The ID of the course
+      responses:
+        '204':
+          description: Course deleted
+components:
+  schemas:
+    Course:
+      type: object
+      properties:
+        course_id:
+          type: integer
+        course_title:
+          type: string
+        location:
+          type: string
+        start_time:
+          type: string
+          pattern: '^(?:[01][0-9]|2[0-3])[0-5][0-9]$'
+          description: The start time of the course in HHMM format.
+        end_time:
+          type: string
+          pattern: '^(?:[01][0-9]|2[0-3])[0-5][0-9]$'
+          description: The end time of the course in HHMM format.
+        syllabus:
+          type: string
+        teacher_name:
+          type: string
+          description: The name of the teacher teaching the course.
+        teacher_email:
+          type: string
+          description: teachre's email
+    teacher:
+      type: object
+      properties:
+        teacher_id:
+          type: integer
+        teacher_name:
+          type: string
+        email:
+          type: string
+        courses:
+          type: array
+          items:
+            type: string
+            description: List of course IDs taught by the teacher
