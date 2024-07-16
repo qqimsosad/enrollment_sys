@@ -19,8 +19,8 @@ def test_get_courses():
 def test_create_teacher():
     new_teacher = {
         "teacher_id": 1,
-        "teacher_name": "楊千萱",
-        "teacher_email": "qooqlecpt@gmail.com"
+        "teacher_name": "Chris Yang",
+        "teacher_email": "qooqlecp@gmail.com"
     }
     response = requests.post("http://127.0.0.1:5000/teachers", json=new_teacher)
     assert response.status_code == 201
@@ -33,8 +33,8 @@ def test_update_course():
     "start_time": "0900",
     "end_time": "1100",
     "syllabus": "學習如何投資",
-    "teacher_name": "楊千萱",
-    "teacher_email": "qooqlecpt@gmail.com"
+    "teacher_name": "Chris Yang",
+    "teacher_email": "qooqlecp@gmail.com"
     }
     response = requests.put("http://127.0.0.1:5000/courses/1", json=updated_course)
     assert response.status_code == 200
