@@ -5,11 +5,10 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-swagger = Swagger(app, template_file='openapi3_0.yaml')
+swagger = Swagger(app, template_file='RESTful.yaml')
 
 @app.route('/courses', methods=['GET'])
 def get_courses():
-    # 這裡應該是從數據庫獲取課程列表
     return jsonify([]), 200
 
 @app.route('/courses', methods=['POST'])
