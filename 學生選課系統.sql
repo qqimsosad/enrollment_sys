@@ -2,8 +2,8 @@ CREATE TABLE `course` (
   `course_id` int PRIMARY KEY,
   `title` varchar(255) NOT NULL,
   `location` varchar(255) NOT NULL,
-  `start_time` datetime NOT NULL,
-  `end_time` datetime NOT NULL,
+  `start_time` varchar(255) NOT NULL,
+  `end_time` varchar(255) NOT NULL,
   `syllabus` text,
   `teacher_id` int
 );
