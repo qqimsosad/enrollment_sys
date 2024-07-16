@@ -1,5 +1,5 @@
 # enrollment_sys
-Student Course Enrollment System design
-1. using RESTful design API
-2. design db
-3. design unit_test
+Student Course Enrollment System design include：
+1. RESTful.yaml -> using RESTful design API
+2. 學生選課系統.sql / 學生選課系統.png  ->  db design
+3. test.py -> unit_test design
